@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="null" />
+
+  <process processType="Private" isExecutable="true" id="com.plugtree.training.claimProcess" name="Claim Process" tns:packageName="com.plugtree.training.droolsjbpm_event_driven.bpmn" >
+
+    <!-- process variables -->
+    <property id="customerName" itemSubjectRef="null"/>
+    <property id="location" itemSubjectRef="null"/>
+    <property id="operator" itemSubjectRef="null"/>
+    <property id="status" itemSubjectRef="null"/>
+    <property id="startDate" itemSubjectRef="null"/>
+    <property id="endDate" itemSubjectRef="null"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="StartProcess"  isInterrupting="true">
+    </startEvent>
+    <userTask id="_jbpm-unique-0" name="Receive Claim" >
+      <ioSpecification>
+        <dataInput id="_jbpm-unique-0_CommentInput" name="Comment" />
+        <dataInput id="_jbpm-unique-0_CreatedByInput" name="CreatedBy" />
+        <dataInput id="_jbpm-unique-0_SkippableInput" name="Skippable" />
+        <dataInput id="_jbpm-unique-0_LocaleInput" name="Locale" />
+        <dataInput id="_jbpm-unique-0_TaskNameInput" name="TaskName" />
+        <dataInput id="_jbpm-unique-0_GroupIdInput" name="GroupId" />
+        <dataInput id="_jbpm-unique-0_NodeNameInput" name="NodeName" />
+        <dataInput id="_jbpm-unique-0_PriorityInput" name="Priority" />
+        <inputSet>
+          <dataInputRefs>_jbpm-unique-0_CommentInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-0_CreatedByInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-0_SkippableInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-0_LocaleInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-0_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-0_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-0_NodeNameInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-0_PriorityInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_jbpm-unique-0_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_jbpm-unique-0_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_jbpm-unique-0_CreatedByInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_jbpm-unique-0_CreatedByInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_jbpm-unique-0_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_jbpm-unique-0_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_jbpm-unique-0_LocaleInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">en-UK</from>
+          <to xsi:type="tFormalExpression">_jbpm-unique-0_LocaleInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_jbpm-unique-0_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_jbpm-unique-0_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_jbpm-unique-0_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">support</from>
+          <to xsi:type="tFormalExpression">_jbpm-unique-0_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_jbpm-unique-0_NodeNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Receive Claim</from>
+          <to xsi:type="tFormalExpression">_jbpm-unique-0_NodeNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_jbpm-unique-0_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_jbpm-unique-0_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression></formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <userTask id="_jbpm-unique-1" name="Technical Inspection" >
+      <ioSpecification>
+        <dataInput id="_jbpm-unique-1_GroupIdInput" name="GroupId" />
+        <dataInput id="_jbpm-unique-1_NodeNameInput" name="NodeName" />
+        <inputSet>
+          <dataInputRefs>_jbpm-unique-1_GroupIdInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-1_NodeNameInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <targetRef>_jbpm-unique-1_GroupIdInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">tech</from>
+          <to xsi:type="tFormalExpression">_jbpm-unique-1_GroupIdInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_jbpm-unique-1_NodeNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Technical Inspection</from>
+          <to xsi:type="tFormalExpression">_jbpm-unique-1_NodeNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+    </userTask>
+    <endEvent id="_jbpm-unique-3" name="End" >
+        <terminateEventDefinition />
+    </endEvent>
+    <scriptTask id="_jbpm-unique-4" name="Print status" >
+      <script></script>
+    </scriptTask>
+
+    <!-- connections -->
+    <sequenceFlow id="_1-_jbpm-unique-0" sourceRef="_1" targetRef="_jbpm-unique-0" />
+    <sequenceFlow id="_jbpm-unique-0-_jbpm-unique-1" sourceRef="_jbpm-unique-0" targetRef="_jbpm-unique-1" />
+    <sequenceFlow id="_jbpm-unique-4-_jbpm-unique-3" sourceRef="_jbpm-unique-4" targetRef="_jbpm-unique-3" />
+    <sequenceFlow id="_jbpm-unique-1-_jbpm-unique-4" sourceRef="_jbpm-unique-1" targetRef="_jbpm-unique-4" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.plugtree.training.claimProcess" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="13" y="95" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-0" >
+        <dc:Bounds x="104" y="94" width="139" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-1" >
+        <dc:Bounds x="274" y="94" width="162" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-3" >
+        <dc:Bounds x="615" y="95" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_jbpm-unique-4" >
+        <dc:Bounds x="467" y="96" width="109" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_1-_jbpm-unique-0" >
+        <di:waypoint x="37" y="119" />
+        <di:waypoint x="173" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_jbpm-unique-0-_jbpm-unique-1" >
+        <di:waypoint x="173" y="118" />
+        <di:waypoint x="355" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_jbpm-unique-4-_jbpm-unique-3" >
+        <di:waypoint x="521" y="120" />
+        <di:waypoint x="639" y="119" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_jbpm-unique-1-_jbpm-unique-4" >
+        <di:waypoint x="355" y="118" />
+        <di:waypoint x="521" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

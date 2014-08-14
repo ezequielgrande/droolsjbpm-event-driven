@@ -1,0 +1,13 @@
+/target
+/local
+# DB for Test Cases
+btm*.tlog
+*.db
+# Eclipse, Netbeans and IntelliJ files
+/.*
+!.gitignore
+/nbproject
+/*.ipr
+/*.iws
+/*.iml
+
