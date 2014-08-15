@@ -1,8 +1,10 @@
 //created on: Aug 12, 2014
 package com.plugtree.training.droolsjbpm_event_driven.drl
 
+import org.kie.api.event.process.ProcessCompletedEvent;
 import org.kie.api.event.process.ProcessStartedEvent;
 import com.plugtree.training.droolsjbpm.WarningMessage;
+import java.util.ArrayList;
 
 global org.slf4j.Logger logger;
 
@@ -11,18 +13,31 @@ declare ProcessStartedEvent
 @expires( 1h15m ) // Discard events after the expiration time
 end
 
+declare ProcessCompletedEvent
+@role( event )
+@expires (1h15m ) // Discard events after the expiration time
+end
+
 dialect "mvel"
 
 rule "Send Warning when there are more than 100 claims within an hour"
 	when
-		Number( nbProcesses : intValue > 100 )
-		from accumulate(
-			e: ProcessStartedEvent( processInstance.processId == "com.plugtree.training.claimProcess" )
+		s1: ArrayList(size() > 100) from accumulate(
+			e: ProcessStartedEvent( 
+				processInstance.processId == "com.plugtree.training.claimProcess", 
+				$processInstanceId: processInstance.id
+			)
 			over window:time(1h),
-			count(e) )
+			collectList($processInstanceId) 
+		)
+		Number(completed : intValue ) from accumulate(
+			e: ProcessCompletedEvent(processInstance.id memberOf s1)
+			over window:time(1h),
+			count(e)
+		)
+		eval (s1.size() - completed > 100)
 	then
-		WarningMessage msg = new WarningMessage("WARNING: Number of Claims in the last hour above 100: " + nbProcesses);
+		WarningMessage msg = new WarningMessage("WARNING: Number of Claims in the last hour above 100: " + (s1.size() - completed));
 		logger.warn( msg.getMessage() );
 		insert(msg);
 end
-

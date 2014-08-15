@@ -29,39 +29,51 @@
     </startEvent>
     <userTask id="_jbpm-unique-0" name="Receive Claim" >
       <ioSpecification>
-        <dataInput id="_jbpm-unique-0_CommentInput" name="Comment" />
         <dataInput id="_jbpm-unique-0_CreatedByInput" name="CreatedBy" />
+        <dataInput id="_jbpm-unique-0_CommentInput" name="Comment" />
         <dataInput id="_jbpm-unique-0_SkippableInput" name="Skippable" />
         <dataInput id="_jbpm-unique-0_LocaleInput" name="Locale" />
         <dataInput id="_jbpm-unique-0_TaskNameInput" name="TaskName" />
         <dataInput id="_jbpm-unique-0_GroupIdInput" name="GroupId" />
-        <dataInput id="_jbpm-unique-0_NodeNameInput" name="NodeName" />
         <dataInput id="_jbpm-unique-0_PriorityInput" name="Priority" />
+        <dataInput id="_jbpm-unique-0_NodeNameInput" name="NodeName" />
+        <dataOutput id="_jbpm-unique-0_customerNameOutput" name="customerName" />
+        <dataOutput id="_jbpm-unique-0_startDateOutput" name="startDate" />
+        <dataOutput id="_jbpm-unique-0_locationOutput" name="location" />
+        <dataOutput id="_jbpm-unique-0_statusOutput" name="status" />
+        <dataOutput id="_jbpm-unique-0_endDateOutput" name="endDate" />
+        <dataOutput id="_jbpm-unique-0_operatorOutput" name="operator" />
         <inputSet>
-          <dataInputRefs>_jbpm-unique-0_CommentInput</dataInputRefs>
           <dataInputRefs>_jbpm-unique-0_CreatedByInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-0_CommentInput</dataInputRefs>
           <dataInputRefs>_jbpm-unique-0_SkippableInput</dataInputRefs>
           <dataInputRefs>_jbpm-unique-0_LocaleInput</dataInputRefs>
           <dataInputRefs>_jbpm-unique-0_TaskNameInput</dataInputRefs>
           <dataInputRefs>_jbpm-unique-0_GroupIdInput</dataInputRefs>
-          <dataInputRefs>_jbpm-unique-0_NodeNameInput</dataInputRefs>
           <dataInputRefs>_jbpm-unique-0_PriorityInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-0_NodeNameInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_jbpm-unique-0_customerNameOutput</dataOutputRefs>
+          <dataOutputRefs>_jbpm-unique-0_startDateOutput</dataOutputRefs>
+          <dataOutputRefs>_jbpm-unique-0_locationOutput</dataOutputRefs>
+          <dataOutputRefs>_jbpm-unique-0_statusOutput</dataOutputRefs>
+          <dataOutputRefs>_jbpm-unique-0_endDateOutput</dataOutputRefs>
+          <dataOutputRefs>_jbpm-unique-0_operatorOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
-      <dataInputAssociation>
-        <targetRef>_jbpm-unique-0_CommentInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression"></from>
-          <to xsi:type="tFormalExpression">_jbpm-unique-0_CommentInput</to>
-        </assignment>
-      </dataInputAssociation>
       <dataInputAssociation>
         <targetRef>_jbpm-unique-0_CreatedByInput</targetRef>
         <assignment>
           <from xsi:type="tFormalExpression"></from>
           <to xsi:type="tFormalExpression">_jbpm-unique-0_CreatedByInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_jbpm-unique-0_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_jbpm-unique-0_CommentInput</to>
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
@@ -93,19 +105,43 @@
         </assignment>
       </dataInputAssociation>
       <dataInputAssociation>
-        <targetRef>_jbpm-unique-0_NodeNameInput</targetRef>
-        <assignment>
-          <from xsi:type="tFormalExpression">Receive Claim</from>
-          <to xsi:type="tFormalExpression">_jbpm-unique-0_NodeNameInput</to>
-        </assignment>
-      </dataInputAssociation>
-      <dataInputAssociation>
         <targetRef>_jbpm-unique-0_PriorityInput</targetRef>
         <assignment>
           <from xsi:type="tFormalExpression"></from>
           <to xsi:type="tFormalExpression">_jbpm-unique-0_PriorityInput</to>
         </assignment>
       </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_jbpm-unique-0_NodeNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Receive Claim</from>
+          <to xsi:type="tFormalExpression">_jbpm-unique-0_NodeNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_jbpm-unique-0_customerNameOutput</sourceRef>
+        <targetRef>customerName</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_jbpm-unique-0_startDateOutput</sourceRef>
+        <targetRef>startDate</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_jbpm-unique-0_locationOutput</sourceRef>
+        <targetRef>location</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_jbpm-unique-0_statusOutput</sourceRef>
+        <targetRef>status</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_jbpm-unique-0_endDateOutput</sourceRef>
+        <targetRef>endDate</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_jbpm-unique-0_operatorOutput</sourceRef>
+        <targetRef>operator</targetRef>
+      </dataOutputAssociation>
       <potentialOwner>
         <resourceAssignmentExpression>
           <formalExpression></formalExpression>
@@ -116,11 +152,15 @@
       <ioSpecification>
         <dataInput id="_jbpm-unique-1_GroupIdInput" name="GroupId" />
         <dataInput id="_jbpm-unique-1_NodeNameInput" name="NodeName" />
+        <dataOutput id="_jbpm-unique-1_statusOutput" name="status" />
+        <dataOutput id="_jbpm-unique-1_endDateOutput" name="endDate" />
         <inputSet>
           <dataInputRefs>_jbpm-unique-1_GroupIdInput</dataInputRefs>
           <dataInputRefs>_jbpm-unique-1_NodeNameInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_jbpm-unique-1_statusOutput</dataOutputRefs>
+          <dataOutputRefs>_jbpm-unique-1_endDateOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
       <dataInputAssociation>
@@ -137,12 +177,26 @@
           <to xsi:type="tFormalExpression">_jbpm-unique-1_NodeNameInput</to>
         </assignment>
       </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_jbpm-unique-1_statusOutput</sourceRef>
+        <targetRef>status</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_jbpm-unique-1_endDateOutput</sourceRef>
+        <targetRef>endDate</targetRef>
+      </dataOutputAssociation>
     </userTask>
     <endEvent id="_jbpm-unique-3" name="End" >
         <terminateEventDefinition />
     </endEvent>
     <scriptTask id="_jbpm-unique-4" name="Print status" >
-      <script></script>
+      <script>System.out.println("=====\nClaim report\n====");
+System.out.println("Customer:  " + customerName);
+System.out.println("Location:  " + location);
+System.out.println("Operator:  " + operator);
+System.out.println("Start date:  " + startDate);
+System.out.println("End date:  " + endDate);
+System.out.println("Status:  " + status);</script>
     </scriptTask>
 
     <!-- connections -->
