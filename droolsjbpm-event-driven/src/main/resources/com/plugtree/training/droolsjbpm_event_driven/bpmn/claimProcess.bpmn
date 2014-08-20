@@ -23,12 +23,17 @@
     <property id="status" itemSubjectRef="null"/>
     <property id="startDate" itemSubjectRef="null"/>
     <property id="endDate" itemSubjectRef="null"/>
+    <property id="inspector" itemSubjectRef="null"/>
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess"  isInterrupting="true">
     </startEvent>
     <userTask id="_jbpm-unique-0" name="Receive Claim" >
       <ioSpecification>
+        <dataInput id="_jbpm-unique-0_customerNameInput" name="customerName" />
+        <dataInput id="_jbpm-unique-0_startDateInput" name="startDate" />
+        <dataInput id="_jbpm-unique-0_locationInput" name="location" />
+        <dataInput id="_jbpm-unique-0_statusInput" name="status" />
         <dataInput id="_jbpm-unique-0_CreatedByInput" name="CreatedBy" />
         <dataInput id="_jbpm-unique-0_CommentInput" name="Comment" />
         <dataInput id="_jbpm-unique-0_SkippableInput" name="Skippable" />
@@ -44,6 +49,10 @@
         <dataOutput id="_jbpm-unique-0_endDateOutput" name="endDate" />
         <dataOutput id="_jbpm-unique-0_operatorOutput" name="operator" />
         <inputSet>
+          <dataInputRefs>_jbpm-unique-0_customerNameInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-0_startDateInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-0_locationInput</dataInputRefs>
+          <dataInputRefs>_jbpm-unique-0_statusInput</dataInputRefs>
           <dataInputRefs>_jbpm-unique-0_CreatedByInput</dataInputRefs>
           <dataInputRefs>_jbpm-unique-0_CommentInput</dataInputRefs>
           <dataInputRefs>_jbpm-unique-0_SkippableInput</dataInputRefs>
@@ -62,6 +71,22 @@
           <dataOutputRefs>_jbpm-unique-0_operatorOutput</dataOutputRefs>
         </outputSet>
       </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>customerName</sourceRef>
+        <targetRef>_jbpm-unique-0_customerNameInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>startDate</sourceRef>
+        <targetRef>_jbpm-unique-0_startDateInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>location</sourceRef>
+        <targetRef>_jbpm-unique-0_locationInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <sourceRef>status</sourceRef>
+        <targetRef>_jbpm-unique-0_statusInput</targetRef>
+      </dataInputAssociation>
       <dataInputAssociation>
         <targetRef>_jbpm-unique-0_CreatedByInput</targetRef>
         <assignment>
@@ -152,6 +177,7 @@
       <ioSpecification>
         <dataInput id="_jbpm-unique-1_GroupIdInput" name="GroupId" />
         <dataInput id="_jbpm-unique-1_NodeNameInput" name="NodeName" />
+        <dataOutput id="_jbpm-unique-1_inspectorOutput" name="inspector" />
         <dataOutput id="_jbpm-unique-1_statusOutput" name="status" />
         <dataOutput id="_jbpm-unique-1_endDateOutput" name="endDate" />
         <inputSet>
@@ -159,6 +185,7 @@
           <dataInputRefs>_jbpm-unique-1_NodeNameInput</dataInputRefs>
         </inputSet>
         <outputSet>
+          <dataOutputRefs>_jbpm-unique-1_inspectorOutput</dataOutputRefs>
           <dataOutputRefs>_jbpm-unique-1_statusOutput</dataOutputRefs>
           <dataOutputRefs>_jbpm-unique-1_endDateOutput</dataOutputRefs>
         </outputSet>
@@ -178,6 +205,10 @@
         </assignment>
       </dataInputAssociation>
       <dataOutputAssociation>
+        <sourceRef>_jbpm-unique-1_inspectorOutput</sourceRef>
+        <targetRef>inspector</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
         <sourceRef>_jbpm-unique-1_statusOutput</sourceRef>
         <targetRef>status</targetRef>
       </dataOutputAssociation>
@@ -194,6 +225,7 @@
 System.out.println("Customer:  " + customerName);
 System.out.println("Location:  " + location);
 System.out.println("Operator:  " + operator);
+System.out.println("Inspector:  " + inspector);
 System.out.println("Start date:  " + startDate);
 System.out.println("End date:  " + endDate);
 System.out.println("Status:  " + status);</script>

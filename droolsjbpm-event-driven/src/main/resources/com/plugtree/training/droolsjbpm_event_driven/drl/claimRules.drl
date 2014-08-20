@@ -3,10 +3,21 @@ package com.plugtree.training.droolsjbpm_event_driven.drl
 
 import org.kie.api.event.process.ProcessCompletedEvent;
 import org.kie.api.event.process.ProcessStartedEvent;
-import com.plugtree.training.droolsjbpm.WarningMessage;
+import com.plugtree.training.droolsjbpm.model.ProcessOverloadWarning;
+import com.plugtree.training.droolsjbpm.model.LocationOutageWarning;
+import com.plugtree.training.droolsjbpm.model.ServerFailingWarning;
+import com.plugtree.training.droolsjbpm.model.Server;
+import com.plugtree.training.droolsjbpm.model.Server.Status;
+import com.plugtree.training.droolsjbpm.event.ServerUpEvent;
+import com.plugtree.training.droolsjbpm.event.ServerDownEvent;
+import com.plugtree.training.droolsjbpm.model.Location;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Date;
 
 global org.slf4j.Logger logger;
+global org.kie.api.runtime.KieSession jbpmSession;
 
 declare ProcessStartedEvent
 @role( event )
@@ -18,6 +29,16 @@ declare ProcessCompletedEvent
 @expires (1h15m ) // Discard events after the expiration time
 end
 
+declare ServerDownEvent
+@role( event )
+@expires( 12m ) // Discard events after the expiration time
+end
+
+declare ServerUpEvent
+@role( event )
+@expires( 12m ) // Discard events after the expiration time
+end
+
 dialect "mvel"
 
 rule "Send Warning when there are more than 100 claims within an hour"
@@ -26,18 +47,79 @@ rule "Send Warning when there are more than 100 claims within an hour"
 			e: ProcessStartedEvent( 
 				processInstance.processId == "com.plugtree.training.claimProcess", 
 				$processInstanceId: processInstance.id
-			)
-			over window:time(1h),
+				)
+			over window:time(1h) from entry-point "customer-support",
 			collectList($processInstanceId) 
-		)
+													)
 		Number(completed : intValue ) from accumulate(
 			e: ProcessCompletedEvent(processInstance.id memberOf s1)
-			over window:time(1h),
+			over window:time(1h) from entry-point "customer-support",
 			count(e)
-		)
+													)
 		eval (s1.size() - completed > 100)
 	then
-		WarningMessage msg = new WarningMessage("WARNING: Number of Claims in the last hour above 100: " + (s1.size() - completed));
-		logger.warn( msg.getMessage() );
-		insert(msg);
+		ProcessOverloadWarning warning = new ProcessOverloadWarning("com.plugtree.training.claimProcess", "Number of Claims in the last hour above 100: " + (s1.size() - completed));
+		logger.warn( warning );
+		insert( warning );
+end
+
+rule "Insert Event when Server is Down"
+	when
+		$server:Server(status == Status.DOWN)
+	then
+		getEntryPoint("server-monitoring").insert( new ServerDownEvent($server) );
+end
+
+rule "Insert Event when Server is Up"
+	when
+		$server:Server(status == Status.UP)
+	then
+		getEntryPoint("server-monitoring").insert( new ServerUpEvent($server) );
+end
+
+rule "Detect location outage"
+	when
+		$location: Location()
+		Number ( $serverCount: intValue ) from accumulate(
+			$server:Server(location == $location),
+			count($server))
+		Number( $downCount : intValue ) from accumulate(
+			$serverDownEvent:ServerDownEvent(server.location == $location) from entry-point "server-monitoring",
+			count($serverDownEvent))
+		eval($downCount == $serverCount)
+		not Server( location == $location, status == Status.UP)
+	then
+		LocationOutageWarning warning = new LocationOutageWarning($location);
+		logger.warn( warning );
+		insert( warning );
+end
+
+rule "Start Process Instance when there is a location outage"
+	when
+		eval(jbpmSession != null) // Just for demo/testing purposes
+		$warn:LocationOutageWarning()
+	then
+	   Map params = new HashMap();
+       params.put("startDate", new Date());
+       params.put("customerName", "serverMonitoring");
+       params.put("location", $warn.getLocation().toString());
+       params.put("status", "OPEN");
+       jbpmSession.startProcess("com.plugtree.training.claimProcess", params);
+       delete($warn); // Remove the warning
+end
+
+rule "Detect failing server"
+	when
+		$server: Server()
+		Number( downEvents : intValue )
+			from accumulate(
+			downEvent: ServerDownEvent(server == $server )
+					   over window:time(10m) from entry-point "server-monitoring",
+			count(downEvent)
+			)
+		eval(downEvents >= 5)
+	then
+		ServerFailingWarning warning = new ServerFailingWarning($server);
+		logger.warn( warning );
+		insert( warning );
 end

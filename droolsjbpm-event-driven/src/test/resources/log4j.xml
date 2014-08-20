@@ -12,7 +12,7 @@
   	<level value="INFO" />
   </logger>
   <logger name="com.plugtree.training.droolsjbpm.eventdriven.listener">
-  	<level value="ERROR"/>
+  	<level value="DEBUG"/>
   </logger>
   <logger name="org.drools">
     <level value="INFO"/>
