@@ -22,5 +22,5 @@ This project represents the monitoring of Servers among different Locations. The
 
 ##Next steps / Wishlist
 * **Demo with UI:** Be able to turn on/off different servers from an UI (text console / graphical interface) and see the system behavior in real time.
-* **Temporal Operators:** Add more operators to the example (read more in [drools-docs](http://docs.jboss.org/drools/release/6.0.1.Final/drools-docs/html_single/index.html#d0e10360))
+* **Temporal Operators:** Add more operators to the example (read more in [drools-docs](http://docs.jboss.org/drools/release/6.1.0.Final/drools-docs/html_single/index.html#d0e10576))
 * **Business Process**: Monitor the performance of the operators and automatically assign tasks based on the current work load of each operator/technical inspector.
