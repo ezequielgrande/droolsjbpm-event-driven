@@ -5,9 +5,13 @@ The purpose of this Project is to show different ways of connecting Business Rul
 
 ##Project description
 This project represents the monitoring of Servers among different Locations. There are business rules that monitor the status of the servers and there is a Business Process in order to receive claims from customers when a server is not working as expected.
+
 When a Process is started or ended, the associated Event will be inserted into the Drools Session so the rules are aware of it.
+
 When the rules detect that there are more than 100 uncompleted processes (have their Start event but no End event), the rule will insert a Warning into the Working Memory.
+
 The Drools session will also be aware of the available Locations and Servers (with their status). Rules will monitor the status of the servers in different locations. When a servers seems to be constantly failing (have failed n times in the last x minutes), a warning will be generated.
+
 There is also one Rule that can start a Process instance, so the customer support service can solve the problem before customers even notice it. When the rule detects that all the servers of a Location has been shut down, it will start a new Process instance with the Location information in order to let the customer support to work on that task and solve the problem.
 
 ###Key Concepts
