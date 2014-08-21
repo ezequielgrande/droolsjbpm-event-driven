@@ -4,7 +4,7 @@ droolsjbpm-event-driven
 The purpose of this Project is to show different ways of connecting Business Rules and Processes, based on Complex Event Processing (Drools Fusion).
 
 ##Project description
-This project represents the monitoring of Servers among different Locations. There are business rules that monitor the status of the servers and there is a Business Process in order to receive claims from customers when a server is not working as expected.
+This project represents the monitoring of Servers among different Locations. There are Business Rules that monitor the status of the servers and there is a Business Process in order to receive claims from customers when a server is not working as expected.
 
 When a Process is started or ended, the associated Event will be inserted into the Drools Session so the rules are aware of it.
 
