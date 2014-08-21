@@ -19,14 +19,14 @@ There is also one Rule that can start a Process instance, so the customer suppor
   * Customer Support: Events generated from the Business Process
   * Server Monitoring: Events generated from the Server Monitoring Rules
   * + Default entry point
- * Events:
+* Events:
    * Process Started
    * Process Ended
    * Server up
    * Server down
- * Temporal operators:
+* Temporal operators:
    * window:time
- * Process Event Listener:
+* Process Event Listener:
    * Will insert events into Drools session when a Process is started or ended.
 
 
